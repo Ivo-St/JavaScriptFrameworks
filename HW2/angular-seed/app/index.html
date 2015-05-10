@@ -1,11 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="VideoSystem">
+
 <head lang="en">
     <meta charset="UTF-8">
     <title>Video System</title>
 </head>
+
 <body>
-<script src="lib/angular/angular.js"></script>
-<script src="js/app.js"></script>
+    <!-- Video input form -->
+    <div ng-controller="VideosController">
+        <div>
+            <form name="myForm" ng-submit="addVideo()">
+                <input type="text" required placeholder="Title" ng-model="newVideo.title" />
+                <br />
+                <input name="picUrl" required type="text" ng-pattern="/http:\/\/.*\.com/" placeholder="Picture URL" ng-model="newVideo.pictureUrl" />
+                <div role="alert">
+                    <span class="error" ng-show="myForm.picUrl.$error.pattern">Not valid URL!</span>
+                </div>
+                <input type="text" required placeholder="Category" ng-model="newVideo.category" />
+                <br />
+                <label for="subs">Have Subtitles</label>
+                <input type="checkbox" id="subs" ng-model="newVideo.haveSubtitles" />
+                <br />
+                <input type="submit" ng-disabled="!newVideo.title || myForm.picUrl.$error.pattern || !newVideo.category" value="Submit">
+            </form>
+        </div>
+
+        <!-- Filters -->
+        <div>
+            <input type="text" ng-model="filters.category">
+            <br />
+            <!--FIXME fix the date filter -->
+            <input type="date" ng-model="filters.date">
+            <br />
+            <label for="filterSubs">Filter by having subtitles</label>
+            <div>
+                Has Subtitles?:
+                <select ng-model="filters.haveSubtitles">
+                    <option selected value="">Any</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            OrderBy:
+            <select ng-model="sortOrder">
+                <option selected value="">Default</option>
+                <option value="title">Title</option>
+                <option value="length">Length</option>
+                <option value="date">Date</option>
+                <option value="likes">Likes</option>
+            </select>
+        </div>
+
+        <!-- All videos view -->
+        <div ng-repeat="video in videos | orderBy:sortOrder | filter:filters">
+            <h3>{{video.title}}</h3>
+            <img ng-src="{{video.pictureUrl}}" />
+            <p>{{video.length}}</p>
+            <p>{{video.category}}</p>
+            <p>{{video.subscribers}}</p>
+            <p>{{video.date | date:'dd/MM/yyyy'}}</p>
+            <p>{{video.haveSubtitles}}</p>
+            <div ng-repeat="comment in video.comments">
+                <p>{{comment.username}}</p>
+                <p>{{comment.content}}</p>
+                <p>{{comment.date | date:'dd/MM/yyyy'}}</p>
+                <p>{{comment.likes}}</p>
+                <p>{{comment.websiteUrl}}</p>
+            </div>
+        </div>
+    </div>
+    <script src="lib/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
 </body>
+
 </html>
