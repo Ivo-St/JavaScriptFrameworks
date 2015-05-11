@@ -7,11 +7,10 @@ app.controller('VideosController', function ($scope, VideosData) {
         var title = $scope.newVideo.title;
         var picUrl = $scope.newVideo.pictureUrl;
         var category = $scope.newVideo.category;
+        var length = $scope.newVideo.length || 0;
         var haveSubs = $scope.newVideo.haveSubtitles || false;
         var date = new Date();
 
-        //future add length parameter to insertVideo function
-
-        VideosData.insertVideo(title, picUrl, category, date, haveSubs);
+        VideosData.insertVideo(title, picUrl, category, date, haveSubs, length);
     };
 });
