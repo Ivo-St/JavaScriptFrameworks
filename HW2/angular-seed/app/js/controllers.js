@@ -1,4 +1,4 @@
-/* global app */
+/*global app*/
 
 app.controller('VideosController', function ($scope, VideosData) {
     $scope.videos = VideosData.getVideos();
