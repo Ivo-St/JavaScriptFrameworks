@@ -13,16 +13,16 @@
         <div id="selectors">
             <div class="myClass">
                 <form name="myForm" ng-submit="addVideo()">
-                    <label>Title</label>
+                    <label>Title*</label>
                     <input type="text" required placeholder="Title" ng-model="newVideo.title" />
                     <br />
-                    <label>Picture URL</label>
+                    <label>Picture URL*</label>
                     <input name="picUrl" required type="text" ng-pattern="/https*:\/\/.*\.\w+[^\s]*/" placeholder="Picture URL" ng-model="newVideo.pictureUrl" />
                     <br />
                     <div class="error" ng-show="myForm.picUrl.$error.pattern">
                         <em>Not valid URL!</em>
                     </div>
-                    <label>Category</label>
+                    <label>Category*</label>
                     <input type="text" required placeholder="Category" ng-model="newVideo.category" />
                     <br />
                     <label>Length</label>
