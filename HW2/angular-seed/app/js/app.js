@@ -1,2 +1,2 @@
-/*jshint unused:false*/
+/*exported app*/
 var app = angular.module('VideoSystem', []);
